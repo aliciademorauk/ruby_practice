@@ -1,20 +1,15 @@
 module CaesarCipher
+  ALPHABET = ('a'..'z').to_a
+  LAST_INDEX = ALPHABET.length - 1
+
   def self.encrypt(sentence, shift_factor)
-    alphabet = ('a'..'z').to_a
-    last_index = alphabet.length - 1
-    
-    already_substituted = []
-    sentence.each_char do |i|
-      if alphabet.include?(i.downcase) && !already_substituted.include?(i)
-        already_substituted << i
-        new_index = alphabet.index(i.downcase) + shift_factor
-        if new_index > last_index
-          new_index = new_index % last_index
-        end
-        sentence = is_uppercase(i) ? sentence.gsub(i, alphabet[new_index].upcase) : sentence.gsub(i, alphabet[new_index])
-      end
+    sentence.each_char.with_index do |char, index|
+      next unless ALPHABET.include?(char.downcase)
+      new_index = (ALPHABET.index(char.downcase) + shift_factor) % LAST_INDEX
+      puts new_index
+      sentence[index] = is_uppercase(char) ? ALPHABET[new_index].upcase : ALPHABET[new_index]
+      puts sentence
     end
-    sentence
   end
 
   def self.is_uppercase(char)
