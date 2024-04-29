@@ -1,6 +1,6 @@
 module CaesarCipher
   ALPHABET = ('a'..'z').to_a
-  LAST_INDEX = ALPHABET.length - 1
+  LAST_INDEX = ALPHABET.length
 
   def self.encrypt(sentence, shift_factor)
     sentence.each_char.with_index do |char, index|
